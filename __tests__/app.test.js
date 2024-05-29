@@ -44,3 +44,23 @@ describe("GET /api", () => {
     })
 })
 
+describe("GET /api/articles/:article_id", () => {
+    test("status 200: responds with requested article", () => {
+        return request(app)
+        .get("/api/articles/1")
+        .expect(200)
+        .then(({ body }) => {
+            expect(body.article).toMatchObject({
+                article_id: 1,
+                author: expect.any(String),
+                title: expect.any(String),
+                body: expect.any(String),
+                topic: expect.any(String),
+                created_at: expect.any(String),
+                votes: expect.any(Number),
+                article_img_url: expect.any(String),
+            })
+        })
+    })
+})
+
