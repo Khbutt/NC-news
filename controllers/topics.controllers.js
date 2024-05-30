@@ -1,4 +1,4 @@
-const { selectTopics, selectArticleById, selectAllArticles } = require('../models/topics.models')
+const { selectTopics, selectArticleById, selectAllArticles, selectAllComments } = require('../models/topics.models')
 const endpoints = require('../endpoints.json')
 
 exports.getTopics = (req, res) => {
@@ -13,7 +13,8 @@ exports.getApi = (req, res) => {
 
 exports.getArticles = (req, res) => {
     const { article_id } = req.params;
-    selectArticleById(article_id).then((article) => { res.status(200).send({ article })});
+    selectArticleById(article_id).then((article) => { 
+        res.status(200).send({ article })});
 };
 
 exports.getAllArticles = (req, res, next) => {
@@ -25,3 +26,13 @@ exports.getAllArticles = (req, res, next) => {
     })
 }
 
+exports.getComments = (req, res, next) => {
+    const { article_id } = req.params;
+    selectAllComments(article_id).then((comments) => {
+        console.log(comments)
+        res.status(200).send({ comments })
+    })
+    .catch((err) => {
+        next(err)
+    })
+    }
