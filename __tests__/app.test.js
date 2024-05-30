@@ -64,3 +64,28 @@ describe("GET /api/articles/:article_id", () => {
     })
 })
 
+describe("GET /api/articles", () => {
+    test("status 200: responds with all articles with the correct properties", () => {
+        return request(app)
+        .get('/api/articles')
+        .expect(200)
+        .then((res) => {
+            const articlesArray = res.body.articles
+            expect(articlesArray).toHaveLength(13)
+            articlesArray.forEach((article) => {
+                expect(article).toMatchObject({
+                    article_id: expect.any(Number),
+                    author: expect.any(String),
+                    title: expect.any(String),
+                    topic: expect.any(String),
+                    created_at: expect.any(String),
+                    votes: expect.any(Number),
+                    article_img_url: expect.any(String),
+                    comment_count: expect.any(String),
+                })
+                expect(article).not.toHaveProperty('body')
+                expect(articlesArray).toBeSorted()
+            })
+        })
+    })
+})
