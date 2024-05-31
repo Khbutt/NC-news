@@ -164,3 +164,22 @@ describe("GET /api/articles/:article_id/comments", () => {
             })
         })
     })
+
+    describe("POST /api/articles/:article_id/comments", () => {
+        test("POST: 400 - returns a message of 'Bad Request' when passed an invalid article_id", () => {
+            return request(app)
+            .post("/api/articles/invalidID/comments")
+            .expect(400)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Bad Request")
+            })
+        })
+        test("GET: 404 - returns a message of 'Not Found' when passed a valid but non-existent article_id", () => {
+            return request(app)
+            .post("/api/articles/100/comments")
+            .expect(404)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Not Found")
+            })
+        })
+    })

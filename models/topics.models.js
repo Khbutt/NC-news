@@ -40,6 +40,9 @@ exports.insertComment = (article_id, newComment) => {
     return db
     .query("INSERT INTO comments (body, author, article_id) VALUES ($1, $2, $3) RETURNING *;", [body, username, article_id])
     .then(({ rows }) => {
+        if (!rows.length) {
+            return Promise.reject({ status: 404, msg: "Not Found"})
+        }
         return rows[0]
-    });
+    })
 }
