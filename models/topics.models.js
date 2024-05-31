@@ -33,3 +33,13 @@ exports.selectAllComments = (article_id) => {
         return rows
         })
     }
+
+exports.insertComment = (article_id, newComment) => {
+    const { username, body } = newComment 
+    console.log(article_id, username, body)
+    return db
+    .query("INSERT INTO comments (body, author, article_id) VALUES ($1, $2, $3) RETURNING *;", [body, username, article_id])
+    .then(({ rows }) => {
+        return rows[0]
+    });
+}

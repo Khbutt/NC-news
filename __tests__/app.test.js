@@ -142,3 +142,25 @@ describe("GET /api/articles/:article_id/comments", () => {
             })
         })
     })
+
+    describe("POST /api/articles/:article_id/comments", () => {
+        test("responds with a 201 status and responds with newly posted comment on an article", () => {
+            const postObj =  {
+                username: "butter_bridge",
+                body: "This is a new comment",
+            }
+            return request(app)
+            .post("/api/articles/1/comments")
+            .send(postObj)
+            .expect(201)
+            .then(({ body }) => {
+                expect(body.comment).toMatchObject({
+                    comment_id: expect.any(Number),
+                    author: expect.any(String),
+                    article_id: expect.any(Number),
+                    votes: expect.any(Number),
+                    body: expect.any(String),
+                })
+            })
+        })
+    })
