@@ -14,7 +14,7 @@ exports.selectArticleById = (article_id) => {
         if (!rows.length) {
             return Promise.reject({ status: 404, msg: "Not Found"})
         }
-        // return rows[0]
+        return rows[0]
     })
     };
 
@@ -30,10 +30,10 @@ exports.selectAllComments = (article_id) => {
     return db
     .query("SELECT * FROM comments WHERE article_id = $1 ORDER BY created_at DESC", [article_id] )
     .then(({rows}) => {
-        return rows
-        // if (!comments.length) {
+        console.log(rows)
+        // if (!rows.length) {
         //     return Promise.reject({ status: 404, msg: "Not Found"})
-        }
-    )
-        // })
+        // }
+        return rows
+        })
     }

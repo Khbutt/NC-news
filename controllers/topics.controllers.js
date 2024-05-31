@@ -28,10 +28,15 @@ exports.getAllArticles = (req, res, next) => {
 
 exports.getComments = (req, res, next) => {
     const { article_id } = req.params;
-    selectAllComments(article_id).then((comments) => {
-        res.status(200).send({ comments })
+    console.log(article_id)
+Promise.all(selectArticleById(article_id),
+    selectAllComments(article_id))
+    .then((mystery) => {
+        console.log(mystery)
+        res.status(200).send({ comments: mystery[1] })
     })
     .catch((err) => {
         next(err)
     })
     }
+

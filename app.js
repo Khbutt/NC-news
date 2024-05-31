@@ -15,7 +15,7 @@ app.get('/api/articles/:article_id', getArticles);
 app.get('/api/articles/', getAllArticles);
 app.get('/api/articles/:article_id/comments', getComments);
 
-
+//handles when path is incorrect
 app.all('*', (req, res) => {
     res.status(404).send({msg: "Not Found"})
       })
@@ -32,7 +32,7 @@ app.use((err, req, res, next) => {
 //custom errors
 app.use((err, req, res, next) => {
   if (err.msg) {
-    res.status(err.status).send({ msg: "err.msg" })
+    res.status(err.status).send({ msg: "Not Found" })
   } else {
     next(err)
   }
