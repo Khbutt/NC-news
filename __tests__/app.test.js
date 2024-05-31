@@ -118,10 +118,11 @@ describe("GET /api/articles/:article_id/comments", () => {
     describe("ERRORS - GET /api/articles/:article_id/comments", () => {
         test("GET: 200 - returns an array if passed a valid article_id that has no associated comments", () => {
         return request(app)
-        .get("/api/articles/1/comments")
+        .get("/api/articles/2/comments")
         .expect(200)
         .then(({ body }) => {
-            expect(body.comment).toEqual([])
+            console.log(body)
+            expect(body.comments).toEqual([])
         })
         })
         test("GET: 400 - returns a message of 'Bad Request' when passed an invalid article_id", () => {
