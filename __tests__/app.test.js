@@ -29,7 +29,7 @@ describe("GET /api/topics", () => {
         .get("/api/topics/not-a-handled-route")
         .expect(404)
         .then(({ body }) => {
-            expect(body.msg).toBe("404 - Not Found")
+            expect(body.msg).toBe("Not Found")
         })
     })
 })
@@ -115,7 +115,7 @@ describe("GET /api/articles/:article_id/comments", () => {
         })
 
 
-    describe("GET: 200 - returns an array if passed a valid article_id that has no associated comments", () => {
+    describe("ERRORS - GET /api/articles/:article_id/comments", () => {
         test("GET: 200 - returns an array if passed a valid article_id that has no associated comments", () => {
         return request(app)
         .get("/api/articles/1/comments")
@@ -124,36 +124,20 @@ describe("GET /api/articles/:article_id/comments", () => {
             expect(body.comment).toEqual([])
         })
         })
-    })
-
-
-    describe("GET /api/articles/:article_id/comments", () => {
-        test("errors", () => {
-            test("GET: 400 = returns a message of 'Bad Request' when passed an invalid article_id", () => {
-                return request(app)
-                .get("/api/articles/invalidID/comments")
-                .expect(400)
-                .then(({ body }) => {
-                    expect(body.msg).toBe("Bad Request")
-                })
+        test("GET: 400 - returns a message of 'Bad Request' when passed an invalid article_id", () => {
+            return request(app)
+            .get("/api/articles/invalidID/comments")
+            .expect(400)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Bad Request")
             })
         })
-        test("GET: 404 - returns a message of 'Not Found' when passed a valid but non-existing article_id"), () => {
+        test("GET: 404 - returns a message of 'Not Found' when passed a valid but non-existent article_id", () => {
             return request(app)
             .get("/api/articles/1000/comments")
             .expect(404)
             .then(({ body }) => {
                 expect(body.msg).toBe("Not Found")
-            })
-        }
-
-    FIRST DO THIS - happy reason or an error will return an empty array 
-        test("GET: 200 - returns an array if passed a valid article_id that has no associated comments", () => {
-            return request(app)
-            .get("/api/articles/4/comments")
-            .expect(200)
-            .then(({ body }) => {
-                expect(body.snacks).toEqual([])
             })
         })
     })
