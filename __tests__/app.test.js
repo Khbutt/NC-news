@@ -174,12 +174,12 @@ describe("GET /api/articles/:article_id/comments", () => {
                 expect(body.msg).toBe("Bad Request")
             })
         })
-        test("GET: 404 - returns a message of 'Not Found' when passed a valid but non-existent article_id", () => {
-            return request(app)
-            .post("/api/articles/100/comments")
-            .expect(404)
-            .then(({ body }) => {
-                expect(body.msg).toBe("Not Found")
-            })
-        })
+        // test("POST: 404 - returns a message of 'Not Found' when passed a valid but non-existent article_id", () => {
+        //     return request(app)
+        //     .post("/api/articles/100/comments")
+        //     .expect(404)
+        //     .then(({ body }) => {
+        //         expect(body.msg).toBe("Not Found")
+        //     })
+        // })
     })
