@@ -121,7 +121,6 @@ describe("GET /api/articles/:article_id/comments", () => {
         .get("/api/articles/2/comments")
         .expect(200)
         .then(({ body }) => {
-            console.log(body)
             expect(body.comments).toEqual([])
         })
         })
@@ -154,6 +153,7 @@ describe("GET /api/articles/:article_id/comments", () => {
             .send(postObj)
             .expect(201)
             .then(({ body }) => {
+                console.log(body)
                 expect(body.comment).toMatchObject({
                     comment_id: expect.any(Number),
                     author: expect.any(String),
@@ -183,3 +183,53 @@ describe("GET /api/articles/:article_id/comments", () => {
         //     })
         // })
     })
+
+
+    describe("PATCH /api/articles/:article_id", () => {
+        test("status 200: responds with a article object property", () => {
+            return request(app)
+            .patch("/api/articles/3")
+            .send({ inc_votes: 10 })
+            .expect(200)
+            .then(({ body }) => {
+                console.log(body)
+                    expect(body.comment).toMatchObject({
+                        article_id: 3,
+                        title: 'Eight pug gifs that remind me of mitch',
+                        topic: 'mitch',
+                        author: 'icellusedkars',
+                        body: 'some gifs',
+                        created_at: "2020-11-03T09:12:00.000Z",
+                        votes: 10,
+                        article_img_url: 'https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700'
+                })
+            })
+        })
+    })
+
+
+// COMPLETE THESE TWO TESTS
+
+// describe("PATCH /api/articles/:article_id", () => {
+//     test("PATCH: 200 - returns a message of '' when passed an invalid article_id", () => {
+//         return request(app)
+//         .post("/api/articles/{}")
+//         .expect(400)
+//         .then(({ body }) => {
+//             expect(body.msg).toBe("")
+//         })
+    // })
+    // test("PATCH: 400 - returns a message of 'Not Found' when passed a valid but non-existent article_id", () => {
+    //     return request(app)
+    //     .post("/api/articles/100/comments")
+    //     .expect(404)
+    //     .then(({ body }) => {
+    //     expect(body.msg).toBe("Not Found")
+    // })
+    //     })
+
+
+//400 invalid id - if it was a string not a number
+// 200 if it was missibg so an empty object
+
+    

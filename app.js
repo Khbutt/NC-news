@@ -6,7 +6,7 @@ const {
   getAllArticles,
   getComments,
   postComments,
-
+  patchComments,
 } = require('./controllers/topics.controllers')
 const app = express()
 
@@ -17,7 +17,8 @@ app.get('/api', getApi);
 app.get('/api/articles/:article_id', getArticles);
 app.get('/api/articles/', getAllArticles);
 app.get('/api/articles/:article_id/comments', getComments);
-app.post('/api/articles/:article_id/comments', postComments)
+app.post('/api/articles/:article_id/comments', postComments);
+app.patch('/api/articles/:article_id', patchComments);
 
 //handles when path is incorrect
 app.all('*', (req, res) => {
@@ -44,8 +45,8 @@ app.use((err, req, res, next) => {
 
 //server errors
 app.use((err, req, res, next) => {
-  console.log(err, "<<------ from our 500")
-  res.status(500).send({ msg: "Code is broken"})
+console.log(err, "<<------ from our 500")
+res.status(500).send({ msg: "Code is broken"})
 })
 
 
