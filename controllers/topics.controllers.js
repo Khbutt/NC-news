@@ -1,4 +1,4 @@
-const { selectTopics, selectArticleById, selectAllArticles, selectAllComments, insertComment, updateComment } = require('../models/topics.models')
+const { selectTopics, selectArticleById, selectAllArticles, selectAllComments, insertComment, updateComment, removeComment } = require('../models/topics.models')
 const endpoints = require('../endpoints.json')
 
 exports.getTopics = (req, res) => {
@@ -58,3 +58,11 @@ return Promise.all([selectArticleById(article_id),
             res.status(200).send({ comment })
         })
     }
+
+    exports.deleteComment = (req, res) => {
+        console.log(req.params.comment_id)
+        const comment_id = req.params.comment_id;
+        removeComment(comment_id).then((comment) => {
+          res.status(204).send();
+        });
+      };

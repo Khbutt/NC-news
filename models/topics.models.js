@@ -57,3 +57,13 @@ exports.updateComment = (article_id, inc_votes) => {
         return rows[0]
       });
   };
+
+  exports.removeComment = (comment_id) => {
+    return db
+      .query(`DELETE FROM comments WHERE comment_id = $1 RETURNING *;`, [comment_id])
+      .then((data) => {
+        console.log(data.rows[0], '<----- DELETED COMMENT')
+        const deletedComment = data.rows[0];
+        return deletedComment;
+      });
+  };

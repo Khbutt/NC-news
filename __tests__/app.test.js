@@ -232,4 +232,10 @@ describe("GET /api/articles/:article_id/comments", () => {
 //400 invalid id - if it was a string not a number
 // 200 if it was missibg so an empty object
 
-    
+
+describe("DELETE /api/comments/:comment_id", () => {
+    test("DELETE /api/comments/:comment_id", () => {
+      return request(app)
+      .delete("/api/comments/3").expect(204);
+    });
+  });
