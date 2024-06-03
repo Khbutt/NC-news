@@ -1,4 +1,4 @@
-const { selectTopics, selectArticleById, selectAllArticles, selectAllComments } = require('../models/topics.models')
+const { selectTopics, selectArticleById, selectAllArticles, selectAllComments, insertComment, updateComment } = require('../models/topics.models')
 const endpoints = require('../endpoints.json')
 
 exports.getTopics = (req, res) => {
@@ -28,7 +28,6 @@ exports.getAllArticles = (req, res, next) => {
 
 exports.getComments = (req, res, next) => {
     const { article_id } = req.params;
-    console.log(article_id)
 return Promise.all([selectArticleById(article_id),
     selectAllComments(article_id)])
     .then((mystery) => {
@@ -39,3 +38,23 @@ return Promise.all([selectArticleById(article_id),
     })
     }
 
+    exports.postComments = (req, res, next) => {
+        const { article_id } = req.params
+        const newComment = req.body
+        insertComment(article_id, newComment)
+        .then((comment) => {
+            res.status(201).send({ comment })
+        })
+        .catch((err) => {
+            next(err)
+        })
+    };
+    
+    exports.patchComments = (req, res, next) => {
+        const { article_id } = req.params
+        const { inc_votes } = req.body
+        updateComment(article_id, inc_votes)
+        .then((comment) => {
+            res.status(200).send({ comment })
+        })
+    }
