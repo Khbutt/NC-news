@@ -153,7 +153,6 @@ describe("GET /api/articles/:article_id/comments", () => {
             .send(postObj)
             .expect(201)
             .then(({ body }) => {
-                console.log(body)
                 expect(body.comment).toMatchObject({
                     comment_id: expect.any(Number),
                     author: expect.any(String),
@@ -192,7 +191,6 @@ describe("GET /api/articles/:article_id/comments", () => {
             .send({ inc_votes: 10 })
             .expect(200)
             .then(({ body }) => {
-                console.log(body)
                     expect(body.comment).toMatchObject({
                         article_id: 3,
                         title: 'Eight pug gifs that remind me of mitch',

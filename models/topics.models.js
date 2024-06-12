@@ -53,7 +53,6 @@ exports.updateComment = (article_id, inc_votes) => {
         if (rows.length === 0) {
             return Promise.reject({status: 404, msg: "This comment id has not returned any updates"})
         }
-        console.log(rows[0])
         return rows[0]
       });
   };
@@ -62,7 +61,6 @@ exports.updateComment = (article_id, inc_votes) => {
     return db
       .query(`DELETE FROM comments WHERE comment_id = $1 RETURNING *;`, [comment_id])
       .then((data) => {
-        console.log(data.rows[0], '<----- DELETED COMMENT')
         const deletedComment = data.rows[0];
         return deletedComment;
       });

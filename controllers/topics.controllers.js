@@ -60,7 +60,6 @@ return Promise.all([selectArticleById(article_id),
     }
 
     exports.deleteComment = (req, res) => {
-        console.log(req.params.comment_id)
         const comment_id = req.params.comment_id;
         removeComment(comment_id).then((comment) => {
           res.status(204).send();
