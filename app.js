@@ -9,9 +9,12 @@ const {
   patchComments,
   deleteComment
 } = require('./controllers/topics.controllers')
+
 const app = express()
+const cors = require ('cors')
 
 app.use(express.json());
+app.use(cors());
 
 app.get('/api/topics', getTopics);
 app.get('/api', getApi);
